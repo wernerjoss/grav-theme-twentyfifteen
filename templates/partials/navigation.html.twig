@@ -1,26 +1,27 @@
-<nav id="site-navigation" class="main-navigation">
-    <div class="menu-demo-menu-container">
-        <ul id="menu-demo-menu" class="nav-menu">
-            {% for page in pages.children %}
-                {% if page.visible %}
-                    {% set current_page = (page.active or page.activeChild) ? 'current' : '' %}
-                        <li class="{{ current_page }}">
-                            <a href="{{ page.url }}">
-                                {{ page.menu }}
-                            </a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-                {% for mitem in site.menu %}
-                    <li>
-                        <a href="{{ mitem.link }}">
-                            {{ mitem.text }}
-                            {% if mitem.description %}
-                                <div class="menu-item-description">{{ mitem.description }}</div>
-                            {% endif %}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </nav>          
+{# incl. submenu, siehe https://stackoverflow.com/questions/25423375/grav-subnavigation	#}
+<nav id="site-navigation" class="main-navigation" role="navigation">        
+	<div class="sidebar-nav">
+		<ul class="nav-menu">
+			{% for page in pages.children %}
+				{% if page.visible %}
+					{% set current_page = (page.active or page.activeChild) ? 'active' : '' %}
+					<li class="{{ current_page }} menu-item"><a href="{{ page.url }}">{{ page.menu }}</a>
+						{% if page.children %}
+							{% if page.template != "blog" %}	{# blog children nicht ins menu aufnehmen !	#}
+								{# hier hat </button> gefehlt: #}
+								{% if page.children.visible.count > 0 %}<button class="dropdown-toggle"></button>{% endif %}
+								<ul class="sub-menu">
+									{% for child in page.children %}
+										{% if child.visible %}
+											<li class="menu-item"><a href="{{ child.url }}">{{ child.menu }}</a></li>
+										{% endif %}
+									{% endfor %}
+								</ul>
+							{% endif %}
+						{% endif %}
+					</li>
+				{% endif %}
+			{% endfor %}                
+		</ul>
+	</div>
+</nav>

@@ -19,6 +19,7 @@ Twenty Fifteen by [WordPress.org](https://wordpress.org/themes/twentyfifteen/) i
 * TaxonomyList plugin support
 * Feeds
 * The GPL v2.0 or later license. :) Use it to make something cool.
+* This version has a Drop-Down Menu, as opposed to the master, see screenshot
 
 # Installation
 
